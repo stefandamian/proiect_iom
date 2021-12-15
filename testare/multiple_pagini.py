@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui  import QIcon
 from PyQt5.QtWidgets import (QWidget, QListWidget, QStackedWidget, 
                              QHBoxLayout, QListWidgetItem, QLabel)
-
+from qt_material import apply_stylesheet
 
 class LeftTabWidget(QWidget):
     def __init__(self, *args, **kwargs):
@@ -77,6 +77,9 @@ if __name__ == '__main__':
     from PyQt5.QtWidgets import QApplication
     app = QApplication(sys.argv)
     app.setStyleSheet(Stylesheet)
+
+    # setup stylesheet
+    apply_stylesheet(app, theme='dark_teal.xml')
     w = LeftTabWidget()
     w.show()
     sys.exit(app.exec_())
