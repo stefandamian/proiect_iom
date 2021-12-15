@@ -11,6 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from qt_material import apply_stylesheet
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -19,8 +20,8 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.groupBox = QtWidgets.QGroupBox(self.centralwidget)
-        self.groupBox.setGeometry(QtCore.QRect(50, 80, 650, 220))
-        self.groupBox.setMinimumSize(QtCore.QSize(650, 220))
+        self.groupBox.setGeometry(QtCore.QRect(50, 80, 650, 141))
+        self.groupBox.setMinimumSize(QtCore.QSize(650, 100))
         self.groupBox.setObjectName("groupBox")
         self.lineEdit = QtWidgets.QLineEdit(self.groupBox)
         self.lineEdit.setGeometry(QtCore.QRect(30, 20, 551, 41))
@@ -30,26 +31,11 @@ class Ui_MainWindow(object):
         self.lineEdit.setFont(font)
         self.lineEdit.setObjectName("lineEdit")
         self.pushButton = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton.setGeometry(QtCore.QRect(30, 160, 75, 23))
+        self.pushButton.setGeometry(QtCore.QRect(30, 90, 75, 23))
         self.pushButton.setObjectName("pushButton")
-        self.groupBox_2 = QtWidgets.QGroupBox(self.groupBox)
-        self.groupBox_2.setGeometry(QtCore.QRect(30, 70, 130, 80))
-        self.groupBox_2.setMinimumSize(QtCore.QSize(130, 80))
-        self.groupBox_2.setObjectName("groupBox_2")
-        self.radioButton = QtWidgets.QRadioButton(self.groupBox_2)
-        self.radioButton.setGeometry(QtCore.QRect(20, 26, 82, 16))
-        self.radioButton.setChecked(True)
-        self.radioButton.setObjectName("radioButton")
-        self.radioButton_2 = QtWidgets.QRadioButton(self.groupBox_2)
-        self.radioButton_2.setGeometry(QtCore.QRect(20, 50, 82, 17))
-        self.radioButton_2.setObjectName("radioButton_2")
         self.toolButton = QtWidgets.QToolButton(self.groupBox)
-        self.toolButton.setGeometry(QtCore.QRect(590, 30, 41, 31))
+        self.toolButton.setGeometry(QtCore.QRect(590, 20, 41, 31))
         self.toolButton.setObjectName("toolButton")
-        self.lineEdit.raise_()
-        self.groupBox_2.raise_()
-        self.pushButton.raise_()
-        self.toolButton.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 750, 21))
@@ -65,11 +51,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.groupBox.setTitle(_translate("MainWindow", "Load photo/video"))
+        self.groupBox.setTitle(_translate("MainWindow", "Load photo"))
         self.pushButton.setText(_translate("MainWindow", "Load"))
-        self.groupBox_2.setTitle(_translate("MainWindow", "Select type"))
-        self.radioButton.setText(_translate("MainWindow", "Photo"))
-        self.radioButton_2.setText(_translate("MainWindow", "Video"))
         self.toolButton.setText(_translate("MainWindow", "..."))
 
 
