@@ -1,5 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
+from qt_material import apply_stylesheet
+
 
 # Import structure for project
 from src.structure import Ui_MainWindow
@@ -25,5 +27,6 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    apply_stylesheet(app, theme='dark_teal.xml')
     window = MainWindow()
     sys.exit(app.exec_())
