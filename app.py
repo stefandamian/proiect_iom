@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from qt_material import apply_stylesheet
 from src.structure import Ui_MainWindow
-from src.WellcomePage import UiWellcomePage
+from src.wellcome_page import UiWellcomePage
 from src.image_page import UiImagePage
 from src.video_page import UiVideoPage
 
