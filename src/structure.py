@@ -130,5 +130,3 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Detecția participanților la trafic | Proiect IOM 2022"))
         self.btn_page_1.setText(_translate("MainWindow", "Imagine"))
         self.btn_page_2.setText(_translate("MainWindow", "Videoclip"))
-        self.btn_home.setText(_translate("MainWindow", "Home"))
-

@@ -1,8 +1,6 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-# Import structure for project
 from qt_material import apply_stylesheet
 from src.structure import Ui_MainWindow
 from src.WellcomePage import UiWellcomePage
