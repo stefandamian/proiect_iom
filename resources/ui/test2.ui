@@ -26,17 +26,17 @@
       <x>50</x>
       <y>80</y>
       <width>650</width>
-      <height>200</height>
+      <height>141</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
       <width>650</width>
-      <height>200</height>
+      <height>100</height>
      </size>
     </property>
     <property name="title">
-     <string>Load photo/video</string>
+     <string>Load photo</string>
     </property>
     <widget class="QLineEdit" name="lineEdit">
      <property name="geometry">
@@ -63,7 +63,7 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>160</y>
+       <y>90</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -71,54 +71,6 @@
      <property name="text">
       <string>Load</string>
      </property>
-    </widget>
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>70</y>
-       <width>130</width>
-       <height>80</height>
-      </rect>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>130</width>
-       <height>80</height>
-      </size>
-     </property>
-     <property name="title">
-      <string>Select type</string>
-     </property>
-     <widget class="QRadioButton" name="radioButton">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>26</y>
-        <width>82</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Photo</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="radioButton_2">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>50</y>
-        <width>82</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Video</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QToolButton" name="toolButton">
      <property name="geometry">
@@ -133,10 +85,6 @@
       <string>...</string>
      </property>
     </widget>
-    <zorder>lineEdit</zorder>
-    <zorder>groupBox_2</zorder>
-    <zorder>pushButton</zorder>
-    <zorder>toolButton</zorder>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
