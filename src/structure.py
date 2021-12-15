@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow, pages):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1000, 500)
         MainWindow.setMinimumSize(QtCore.QSize(1000, 500))
@@ -49,6 +49,22 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_4.setSpacing(0)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
+
+        # btn Home
+        self.btn_home = QtWidgets.QPushButton(self.frame_top_menus)
+        self.btn_home.setMinimumSize(QtCore.QSize(0, 40))
+        self.btn_home.setStyleSheet("QPushButton {\n"
+                                      "    color: rgb(255, 255, 255);\n"
+                                      "    background-color: rgb(35, 35, 35);\n"
+                                      "    border: 0px solid;\n"
+                                      "}\n"
+                                      "QPushButton:hover {\n"
+                                      "    background-color: rgb(85, 170, 255);\n"
+                                      "}")
+        self.btn_home.setObjectName("btn_home")
+        self.verticalLayout_4.addWidget(self.btn_home)
+
+        # btn Imagine
         self.btn_page_1 = QtWidgets.QPushButton(self.frame_top_menus)
         self.btn_page_1.setMinimumSize(QtCore.QSize(0, 40))
         self.btn_page_1.setStyleSheet("QPushButton {\n"
@@ -61,6 +77,8 @@ class Ui_MainWindow(object):
 "}")
         self.btn_page_1.setObjectName("btn_page_1")
         self.verticalLayout_4.addWidget(self.btn_page_1)
+
+        #btn Video
         self.btn_page_2 = QtWidgets.QPushButton(self.frame_top_menus)
         self.btn_page_2.setMinimumSize(QtCore.QSize(0, 40))
         self.btn_page_2.setStyleSheet("QPushButton {\n"
@@ -83,38 +101,21 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.stackedWidget = QtWidgets.QStackedWidget(self.frame_pages)
         self.stackedWidget.setObjectName("stackedWidget")
-        self.page_1 = QtWidgets.QWidget()
-        self.page_1.setObjectName("page_1")
-        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.page_1)
-        self.verticalLayout_7.setObjectName("verticalLayout_7")
-        self.label_1 = QtWidgets.QLabel(self.page_1)
-        font = QtGui.QFont()
-        font.setPointSize(40)
-        self.label_1.setFont(font)
-        self.label_1.setStyleSheet("color: #FFF;")
-        self.label_1.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_1.setObjectName("label_1")
-        self.verticalLayout_7.addWidget(self.label_1)
-        self.stackedWidget.addWidget(self.page_1)
-        self.page_2 = QtWidgets.QWidget()
-        self.page_2.setObjectName("page_2")
-        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.page_2)
-        self.verticalLayout_6.setObjectName("verticalLayout_6")
-        self.label_2 = QtWidgets.QLabel(self.page_2)
-        font = QtGui.QFont()
-        font.setPointSize(40)
-        self.label_2.setFont(font)
-        self.label_2.setStyleSheet("color: #FFF;")
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setObjectName("label_2")
-        self.verticalLayout_6.addWidget(self.label_2)
-        self.stackedWidget.addWidget(self.page_2)
-        self.page_3 = QtWidgets.QWidget()
-        self.page_3.setEnabled(True)
-        self.page_3.setObjectName("page_3")
-        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.page_3)
-        self.verticalLayout_8.setObjectName("verticalLayout_8")
-        self.stackedWidget.addWidget(self.page_3)
+
+        #PAGE 1
+        self.page1 = pages["image_page"]
+
+        #PAGE 2
+        self.page2 = pages["video_page"]
+
+        #PAGE wellcome
+        self.wellcome_page = pages["wellcome_page"]
+
+
+        self.stackedWidget.addWidget(self.page1)
+        self.stackedWidget.addWidget(self.page2)
+        self.stackedWidget.addWidget(self.wellcome_page)
+
         self.verticalLayout_5.addWidget(self.stackedWidget)
         self.horizontalLayout_2.addWidget(self.frame_pages)
         self.verticalLayout.addWidget(self.Content)
@@ -126,18 +127,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Detecția partifipanților la trafic | Proiect IOM 2022"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Detecția participanților la trafic | Proiect IOM 2022"))
         self.btn_page_1.setText(_translate("MainWindow", "Imagine"))
         self.btn_page_2.setText(_translate("MainWindow", "Videoclip"))
-        self.label_1.setText(_translate("MainWindow", "Pagina 1"))
-        self.label_2.setText(_translate("MainWindow", "Pagina 2"))
+        self.btn_home.setText(_translate("MainWindow", "Home"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
