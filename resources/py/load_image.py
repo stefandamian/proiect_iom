@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'resources/ui/load.ui'
+# Form implementation generated from reading ui file 'resources/ui/load_image.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -32,11 +32,14 @@ class Ui_Form(object):
         self.pushButton = QtWidgets.QPushButton(self.groupBox)
         self.pushButton.setEnabled(True)
         self.pushButton.setGeometry(QtCore.QRect(530, 130, 111, 41))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
         self.label = QtWidgets.QLabel(self.groupBox)
-        self.label.setGeometry(QtCore.QRect(30, 20, 111, 16))
+        self.label.setGeometry(QtCore.QRect(30, 20, 601, 16))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.pushButton1 = QtWidgets.QPushButton(self.groupBox)
@@ -45,7 +48,7 @@ class Ui_Form(object):
         self.label_2 = QtWidgets.QLabel(self.groupBox)
         self.label_2.setGeometry(QtCore.QRect(30, 190, 601, 16))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
 

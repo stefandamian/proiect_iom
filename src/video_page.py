@@ -3,8 +3,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # Video page UI
 class UiVideoPage(object):
     def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(872, 634)
         self.groupBox = QtWidgets.QGroupBox(Form)
         self.groupBox.setGeometry(QtCore.QRect(100, 100, 671, 231))
         self.groupBox.setTitle("")
@@ -22,12 +20,14 @@ class UiVideoPage(object):
         self.pushButton = QtWidgets.QPushButton(self.groupBox)
         self.pushButton.setEnabled(True)
         self.pushButton.setGeometry(QtCore.QRect(530, 130, 111, 41))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.setProperty('class', 'big_button')
-        self.label = QtWidgets.QLabel(self.groupBox)
-        self.label.setGeometry(QtCore.QRect(30, 20, 111, 16))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName("pushButton")
+        self.label = QtWidgets.QLabel(self.groupBox)
+        self.label.setGeometry(QtCore.QRect(30, 20, 601, 16))
+        font = QtGui.QFont()
+        font.setPointSize(11)
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.pushButton1 = QtWidgets.QPushButton(self.groupBox)
@@ -36,7 +36,7 @@ class UiVideoPage(object):
         self.label_2 = QtWidgets.QLabel(self.groupBox)
         self.label_2.setGeometry(QtCore.QRect(30, 190, 601, 16))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(11)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
 
