@@ -45,6 +45,12 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    apply_stylesheet(app, theme="dark_teal.xml")
+    apply_stylesheet(app, theme="dark_blue.xml")
+
+    # stylesheet = app.styleSheet()
+    # with open('custom.css') as file:
+    #     app.setStyleSheet(stylesheet + file.read().format(**os.environ))
+
     window = MainWindow()
     sys.exit(app.exec_())
+

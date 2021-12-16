@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
+# Wellcome page UI
 class UiWellcomePage(object):
     def setupUi(self, widget):
         widget.setEnabled(True)
