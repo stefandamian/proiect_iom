@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from qt_material import apply_stylesheet
@@ -47,9 +48,9 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     apply_stylesheet(app, theme="dark_blue.xml")
 
-    # stylesheet = app.styleSheet()
-    # with open('custom.css') as file:
-    #     app.setStyleSheet(stylesheet + file.read().format(**os.environ))
+    stylesheet = app.styleSheet()
+    with open('resources/css/main.css') as file:
+        app.setStyleSheet(stylesheet + file.read().format(**os.environ))
 
     window = MainWindow()
     sys.exit(app.exec_())

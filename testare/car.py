@@ -7,7 +7,7 @@ import cv2
 def main():
     cascade_src = 'cars.xml'
 
-    video_src = 'video.mp4'
+    video_src = 'testare/video.mp4'
 
     cap = cv2.VideoCapture(video_src)
     fgbg = cv2.createBackgroundSubtractorMOG2()
