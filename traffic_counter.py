@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import pandas as pd
 
-cap = cv2.VideoCapture('video.mp4')
+cap = cv2.VideoCapture('testare/video.mp4')
 frames_count, fps, width, height = cap.get(cv2.CAP_PROP_FRAME_COUNT), cap.get(cv2.CAP_PROP_FPS), cap.get(
     cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 width = int(width)
