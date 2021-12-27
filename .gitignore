@@ -1,3 +1,9 @@
 /.idea
 src/__pycache__/
 *.pyc
+test/yolo-coco/yolov3.weights
+test/yolo-coco/yolov3.cfg
+test2/yolo-coco/yolov3.cfg
+test2/yolo-coco/yolov3.weights
+testare/test/yolov3-320.cfg
+testare/test/yolov3-320.weights
