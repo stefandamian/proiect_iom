@@ -3,11 +3,11 @@
 import cv2
 
 
-video_src = 'pedestrians.avi'
+video_src = '../testare/video.mp4'
 
 cap = cv2.VideoCapture(video_src)
 fgbg = cv2.createBackgroundSubtractorMOG2()
-bike_cascade = cv2.CascadeClassifier('pedestrian.xml')
+bike_cascade = cv2.CascadeClassifier('../testare/cars.xml')
 
 while True:
     ret, img = cap.read()
