@@ -1,8 +1,19 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QFileDialog
+
 
 # Video page UI
 class UiVideoPage(object):
     def setupUi(self, Form):
+        def openFileDialog():
+            file, check = QFileDialog.getOpenFileName(None, "Select video", "",
+                                                      "Mp4 video (*.mp4);;Avi video (*.avi)")
+            if check:
+                self.lineEdit_5.setText(file)
+                self.pushButton_10.setEnabled(True)
+            else:
+                self.lineEdit_5.setText("Alege alt videoclip ...")
+
         self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -39,8 +50,11 @@ class UiVideoPage(object):
         self.pushButton_11 = QtWidgets.QPushButton(self.groupBox)
         self.pushButton_11.setGeometry(QtCore.QRect(620, 60, 61, 41))
         self.pushButton_11.setObjectName("pushButton_11")
+
+        self.pushButton_11.clicked.connect(openFileDialog)
+
         self.pushButton_10 = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton_10.setEnabled(True)
+        self.pushButton_10.setEnabled(False)
         self.pushButton_10.setGeometry(QtCore.QRect(570, 130, 111, 41))
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -55,11 +69,12 @@ class UiVideoPage(object):
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
+
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.lineEdit_5.setPlaceholderText(_translate("Form", "   Alege un videoclip ..."))
-        self.label_11.setText(_translate("Form", "* Extensii acceptate: MP4"))
+        self.label_11.setText(_translate("Form", "* Extensii acceptate: MP4, avi"))
         self.label_10.setText(_translate("Form", "Încarcă un videoclip"))
         self.pushButton_11.setToolTip(_translate("Form", "<html><head/><body><p>Alege o imagine</p></body></html>"))
         self.pushButton_11.setText(_translate("Form", "..."))
