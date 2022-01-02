@@ -15,13 +15,13 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
 
         wellcome_page = QWidget(self)
-        UiWellcomePage().setupUi(wellcome_page)
+        UiWellcomePage().setupUi(wellcome_page, self)
 
         image_page = QWidget(self)
-        UiImagePage().setupUi(image_page)
+        UiImagePage().setupUi(image_page, self)
 
         video_page = QWidget(self)
-        UiVideoPage().setupUi(video_page)
+        UiVideoPage().setupUi(video_page, self)
 
         pages = {"wellcome_page": wellcome_page,
                  "image_page": image_page,

@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QFileDialog, QPushButton, QWidget, QVBoxLayout
 
 # Video page UI
 class UiVideoPage(object):
-    def setupUi(self, Form):
+    def setupUi(self, Form, root):
         def openVideo():
             self.groupBox.setHidden(True)
             file = self.lineEdit_5.text()

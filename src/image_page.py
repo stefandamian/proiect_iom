@@ -1,14 +1,40 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 # Image page UI
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QFileDialog
+import cv2
 
 
 class UiImagePage(object):
-    def setupUi(self, Form):
+
+    def setupUi(self, Form, root):
         def openImage():
-            self.groupBox.setHidden(True)
+            def convert_cv_qt(cv_img):
+                """Convert from an opencv image to QPixmap"""
+                rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
+                h, w, ch = rgb_image.shape
+                bytes_per_line = ch * w
+                convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888)
+                p = convert_to_Qt_format.scaled(self.disply_width, self.display_height, Qt.KeepAspectRatio)
+                return QPixmap.fromImage(p)
+
+            root.ui.stackedWidget.setCurrentWidget(root.ui.auxiliar_page)
+
             file = self.lineEdit_5.text()
+
+            self.disply_width = 640
+            self.display_height = 480
+            # create the label that holds the image
+            self.image_label = QtWidgets.QLabel()
+            self.image_label.resize(self.disply_width, self.display_height)
+            self.layout = QtWidgets.QVBoxLayout(root.ui.auxiliar_page)
+            self.layout.addWidget(self.image_label)
+
+            img = cv2.imread(file)
+
+            self.image_label.setPixmap(convert_cv_qt(img))
 
         def openFileDialog():
             file, check = QFileDialog.getOpenFileName(None, "Select image", "",
@@ -18,6 +44,7 @@ class UiImagePage(object):
                 self.pushButton_10.setEnabled(True)
             else:
                 self.lineEdit_5.setText("Alege alta imagine ...")
+
         self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -54,7 +81,7 @@ class UiImagePage(object):
         self.pushButton_11 = QtWidgets.QPushButton(self.groupBox)
         self.pushButton_11.setGeometry(QtCore.QRect(620, 60, 61, 41))
         self.pushButton_11.setObjectName("pushButton_11")
-        #open file dialog
+        # open file dialog
         self.pushButton_11.clicked.connect(openFileDialog)
         self.pushButton_10 = QtWidgets.QPushButton(self.groupBox)
         self.pushButton_10.setEnabled(False)
@@ -63,7 +90,7 @@ class UiImagePage(object):
         font.setPointSize(11)
         self.pushButton_10.setFont(font)
         self.pushButton_10.setObjectName("pushButton_10")
-        #open image
+        # open image
         self.pushButton_10.clicked.connect(openImage)
         self.horizontalLayout.addWidget(self.groupBox)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)

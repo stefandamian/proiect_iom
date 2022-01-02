@@ -124,10 +124,14 @@ class Ui_MainWindow(object):
         #PAGE wellcome
         self.wellcome_page = pages["wellcome_page"]
 
+        #auxiliar page
+        self.auxiliar_page = QtWidgets.QWidget(MainWindow)
+
         # Add pages in layout
         self.stackedWidget.addWidget(self.page1)
         self.stackedWidget.addWidget(self.page2)
         self.stackedWidget.addWidget(self.wellcome_page)
+        self.stackedWidget.addWidget(self.auxiliar_page)
 
         self.verticalLayout_5.addWidget(self.stackedWidget)
         self.horizontalLayout_2.addWidget(self.frame_pages)

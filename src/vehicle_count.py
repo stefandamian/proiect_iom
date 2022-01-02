@@ -232,9 +232,9 @@ def from_static_image(image):
     frequency = collections.Counter(detected_classNames)
     print(frequency)
     # Draw counting texts in the frame
-    cv2.putText(img, "Person:        " + str(frequency['person']), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
+    cv2.putText(img, "Person:     " + str(frequency['person']), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
                 font_thickness)
-    cv2.putText(img, "Bicycle:        " + str(frequency['bicycle']),  (20, 60), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
+    cv2.putText(img, "Bicycle:    " + str(frequency['bicycle']),  (20, 60), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
                 font_thickness)
     cv2.putText(img, "Car:        " + str(frequency['car']), (20, 80), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
                 font_thickness)
@@ -257,5 +257,5 @@ def from_static_image(image):
 
 
 if __name__ == '__main__':
-    realTime()
-    # from_static_image(image_file)
+    #realTime()
+    from_static_image(image_file)

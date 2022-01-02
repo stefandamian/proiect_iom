@@ -2,7 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 # Wellcome page UI
 class UiWellcomePage(object):
-    def setupUi(self, widget):
+    def setupUi(self, widget, root):
         widget.setEnabled(True)
         widget.setObjectName("wellcome_page")
         self.label_2 = QtWidgets.QLabel(widget)
