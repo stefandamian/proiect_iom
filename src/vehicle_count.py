@@ -6,13 +6,13 @@ import cv2
 import csv
 import collections
 import numpy as np
-from testare.test.tracker import *
+from src.tracker import *
 
 # Initialize Tracker
 tracker = EuclideanDistTracker()
 
 # Initialize the videocapture object
-cap = cv2.VideoCapture('../video-compress.mp4')
+cap = cv2.VideoCapture('../testare/video-compress.mp4')
 input_size = 320
 
 # Detection confidence threshold
@@ -29,7 +29,7 @@ up_line_position = middle_line_position - 15
 down_line_position = middle_line_position + 15
 
 # Store Coco Names in a list
-classesFile = "coco.names"
+classesFile = "../resources/yolo/coco.names"
 classNames = open(classesFile).read().strip().split('\n')
 print(classNames)
 print(len(classNames))
@@ -40,8 +40,8 @@ required_class_index = [0, 1, 2, 3, 5, 7]
 detected_classNames = []
 
 ## Model Files
-modelConfiguration = 'yolov3-320.cfg'
-modelWeigheights = 'yolov3-320.weights'
+modelConfiguration = '../resources/yolo/yolov3-320.cfg'
+modelWeigheights = '../resources/yolo/yolov3-320.weights'
 
 # configure the network model
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeigheights)
@@ -196,7 +196,7 @@ def realTime():
 
     # Write the vehicle counting information in a file and save it
 
-    with open("data.csv", 'w') as f1:
+    with open("../testare/test/data.csv", 'w') as f1:
         cwriter = csv.writer(f1)
         cwriter.writerow(['Direction', 'car', 'motorbike', 'bus', 'truck'])
         up_list.insert(0, "Up")
@@ -210,7 +210,7 @@ def realTime():
     cv2.destroyAllWindows()
 
 
-image_file = 'dih_intersection2.jpg'
+image_file = '../testare/test/dih_intersection2.jpg'
 
 
 def from_static_image(image):
@@ -250,7 +250,7 @@ def from_static_image(image):
     cv2.waitKey(0)
 
     # save the data to a csv file
-    with open("static-data.csv", 'a') as f1:
+    with open("../testare/test/static-data.csv", 'a') as f1:
         cwriter = csv.writer(f1)
         cwriter.writerow([image, frequency['car'], frequency['motorbike'], frequency['bus'], frequency['truck']])
     f1.close()
