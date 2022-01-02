@@ -7,12 +7,16 @@ from src.structure import Ui_MainWindow
 from src.wellcome_page import UiWellcomePage
 from src.image_page import UiImagePage
 from src.video_page import UiVideoPage
+from src.aux_page import UiAuxPage
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
+
+        self.image_label = None
+        self.button_back = None
 
         wellcome_page = QWidget(self)
         UiWellcomePage().setupUi(wellcome_page, self)
@@ -23,9 +27,13 @@ class MainWindow(QMainWindow):
         video_page = QWidget(self)
         UiVideoPage().setupUi(video_page, self)
 
+        aux_page = QWidget(self)
+        UiAuxPage().setupUi(aux_page, self)
+
         pages = {"wellcome_page": wellcome_page,
                  "image_page": image_page,
-                 "video_page": video_page
+                 "video_page": video_page,
+                 "aux_page": aux_page
                  }
         self.ui.setupUi(self, pages)
 

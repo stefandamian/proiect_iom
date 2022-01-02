@@ -6,7 +6,11 @@ import cv2
 import csv
 import collections
 import numpy as np
+from PyQt5 import QtGui
+
 from src.tracker import *
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import Qt
 
 # Initialize Tracker
 tracker = EuclideanDistTracker()
@@ -29,7 +33,7 @@ up_line_position = middle_line_position - 15
 down_line_position = middle_line_position + 15
 
 # Store Coco Names in a list
-classesFile = "../resources/yolo/coco.names"
+classesFile = "resources/yolo/coco.names"
 classNames = open(classesFile).read().strip().split('\n')
 print(classNames)
 print(len(classNames))
@@ -40,8 +44,8 @@ required_class_index = [0, 1, 2, 3, 5, 7]
 detected_classNames = []
 
 ## Model Files
-modelConfiguration = '../resources/yolo/yolov3-320.cfg'
-modelWeigheights = '../resources/yolo/yolov3-320.weights'
+modelConfiguration = 'resources/yolo/yolov3-320.cfg'
+modelWeigheights = 'resources/yolo/yolov3-320.weights'
 
 # configure the network model
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeigheights)
@@ -150,6 +154,15 @@ def postProcess(outputs, img):
         count_vehicle(box_id, img)
 
 
+def convert_cv_qt(cv_img):
+    """Convert from an opencv image to QPixmap"""
+    rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
+    h, w, ch = rgb_image.shape
+    bytes_per_line = ch * w
+    convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888)
+    p = convert_to_Qt_format.scaled(640, 480, Qt.KeepAspectRatio)
+    return QPixmap.fromImage(p)
+
 def realTime():
     while True:
         success, img = cap.read()
@@ -213,7 +226,7 @@ def realTime():
 image_file = '../testare/test/dih_intersection2.jpg'
 
 
-def from_static_image(image):
+def from_static_image(image, output_img):
     img = cv2.imread(image)
 
     blob = cv2.dnn.blobFromImage(img, 1 / 255, (input_size, input_size), [0, 0, 0], 1, crop=False)
@@ -245,17 +258,4 @@ def from_static_image(image):
     cv2.putText(img, "Truck:      " + str(frequency['truck']), (20, 140), cv2.FONT_HERSHEY_SIMPLEX, font_size,
                 font_color, font_thickness)
 
-    cv2.imshow("image", img)
-
-    cv2.waitKey(0)
-
-    # save the data to a csv file
-    with open("../testare/test/static-data.csv", 'a') as f1:
-        cwriter = csv.writer(f1)
-        cwriter.writerow([image, frequency['car'], frequency['motorbike'], frequency['bus'], frequency['truck']])
-    f1.close()
-
-
-if __name__ == '__main__':
-    #realTime()
-    from_static_image(image_file)
+    output_img.setPixmap(convert_cv_qt(img))
