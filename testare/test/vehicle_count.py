@@ -35,7 +35,7 @@ print(classNames)
 print(len(classNames))
 
 # class index for our required detection classes
-required_class_index = [2, 3, 5, 7]
+required_class_index = [0, 1, 2, 3, 5, 7]
 
 detected_classNames = []
 
@@ -68,8 +68,8 @@ def find_center(x, y, w, h):
 # List for store vehicle count information
 temp_up_list = []
 temp_down_list = []
-up_list = [0, 0, 0, 0]
-down_list = [0, 0, 0, 0]
+up_list = [0, 0, 0, 0, 0, 0]
+down_list = [0, 0, 0, 0, 0, 0]
 
 
 # Function for count vehicle
@@ -175,13 +175,17 @@ def realTime():
         # Draw counting texts in the frame
         cv2.putText(img, "Up", (110, 20), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
         cv2.putText(img, "Down", (160, 20), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Car:        " + str(up_list[0]) + "     " + str(down_list[0]), (20, 40),
+        cv2.putText(img, "Person:        " + str(up_list[0]) + "     " + str(down_list[0]), (20, 40),
                     cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Motorbike:  " + str(up_list[1]) + "     " + str(down_list[1]), (20, 60),
+        cv2.putText(img, "Bycicle:        " + str(up_list[1]) + "     " + str(down_list[1]), (20, 60),
                     cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Bus:        " + str(up_list[2]) + "     " + str(down_list[2]), (20, 80),
+        cv2.putText(img, "Car:        " + str(up_list[2]) + "     " + str(down_list[2]), (20, 80),
                     cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Truck:      " + str(up_list[3]) + "     " + str(down_list[3]), (20, 100),
+        cv2.putText(img, "Motorbike:  " + str(up_list[3]) + "     " + str(down_list[3]), (20, 100),
+                    cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
+        cv2.putText(img, "Bus:        " + str(up_list[4]) + "     " + str(down_list[4]), (20, 120),
+                    cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
+        cv2.putText(img, "Truck:      " + str(up_list[5]) + "     " + str(down_list[5]), (20, 140),
                     cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
 
         # Show the frames
@@ -228,13 +232,17 @@ def from_static_image(image):
     frequency = collections.Counter(detected_classNames)
     print(frequency)
     # Draw counting texts in the frame
-    cv2.putText(img, "Car:        " + str(frequency['car']), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
+    cv2.putText(img, "Person:        " + str(frequency['person']), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
                 font_thickness)
-    cv2.putText(img, "Motorbike:  " + str(frequency['motorbike']), (20, 60), cv2.FONT_HERSHEY_SIMPLEX, font_size,
+    cv2.putText(img, "Bicycle:        " + str(frequency['bicycle']),  (20, 60), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
+                font_thickness)
+    cv2.putText(img, "Car:        " + str(frequency['car']), (20, 80), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
+                font_thickness)
+    cv2.putText(img, "Motorbike:  " + str(frequency['motorbike']), (20, 100), cv2.FONT_HERSHEY_SIMPLEX, font_size,
                 font_color, font_thickness)
-    cv2.putText(img, "Bus:        " + str(frequency['bus']), (20, 80), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
+    cv2.putText(img, "Bus:        " + str(frequency['bus']), (20, 120), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
                 font_thickness)
-    cv2.putText(img, "Truck:      " + str(frequency['truck']), (20, 100), cv2.FONT_HERSHEY_SIMPLEX, font_size,
+    cv2.putText(img, "Truck:      " + str(frequency['truck']), (20, 140), cv2.FONT_HERSHEY_SIMPLEX, font_size,
                 font_color, font_thickness)
 
     cv2.imshow("image", img)
