@@ -1,8 +1,23 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 # Image page UI
+from PyQt5.QtWidgets import QFileDialog
+
+
 class UiImagePage(object):
     def setupUi(self, Form):
+        def openImage():
+            self.groupBox.setHidden(True)
+            file = self.lineEdit_5.text()
+
+        def openFileDialog():
+            file, check = QFileDialog.getOpenFileName(None, "Select image", "",
+                                                      "JPG image (*.jpg);;JPEG image (*.jpeg);;PNG image (*.png)")
+            if check:
+                self.lineEdit_5.setText(file)
+                self.pushButton_10.setEnabled(True)
+            else:
+                self.lineEdit_5.setText("Alege alta imagine ...")
         self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -39,13 +54,17 @@ class UiImagePage(object):
         self.pushButton_11 = QtWidgets.QPushButton(self.groupBox)
         self.pushButton_11.setGeometry(QtCore.QRect(620, 60, 61, 41))
         self.pushButton_11.setObjectName("pushButton_11")
+        #open file dialog
+        self.pushButton_11.clicked.connect(openFileDialog)
         self.pushButton_10 = QtWidgets.QPushButton(self.groupBox)
-        self.pushButton_10.setEnabled(True)
+        self.pushButton_10.setEnabled(False)
         self.pushButton_10.setGeometry(QtCore.QRect(570, 130, 111, 41))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.pushButton_10.setFont(font)
         self.pushButton_10.setObjectName("pushButton_10")
+        #open image
+        self.pushButton_10.clicked.connect(openImage)
         self.horizontalLayout.addWidget(self.groupBox)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.horizontalLayout.addItem(spacerItem2)

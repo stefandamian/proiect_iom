@@ -14,13 +14,13 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
 
-        wellcome_page = QtWidgets.QWidget()
+        wellcome_page = QWidget(self)
         UiWellcomePage().setupUi(wellcome_page)
 
-        image_page = QtWidgets.QWidget()
+        image_page = QWidget(self)
         UiImagePage().setupUi(image_page)
 
-        video_page = QtWidgets.QWidget()
+        video_page = QWidget(self)
         UiVideoPage().setupUi(video_page)
 
         pages = {"wellcome_page": wellcome_page,

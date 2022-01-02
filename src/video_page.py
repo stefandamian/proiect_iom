@@ -1,10 +1,19 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtCore import QUrl
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
+from PyQt5.QtMultimediaWidgets import QVideoWidget
+from PyQt5.QtWidgets import QFileDialog, QPushButton, QWidget, QVBoxLayout
 
 
 # Video page UI
 class UiVideoPage(object):
     def setupUi(self, Form):
+        def openVideo():
+            self.groupBox.setHidden(True)
+            file = self.lineEdit_5.text()
+
+
+
         def openFileDialog():
             file, check = QFileDialog.getOpenFileName(None, "Select video", "",
                                                       "Mp4 video (*.mp4);;Avi video (*.avi)")
@@ -50,11 +59,12 @@ class UiVideoPage(object):
         self.pushButton_11 = QtWidgets.QPushButton(self.groupBox)
         self.pushButton_11.setGeometry(QtCore.QRect(620, 60, 61, 41))
         self.pushButton_11.setObjectName("pushButton_11")
-
+        # open file dialog
         self.pushButton_11.clicked.connect(openFileDialog)
-
         self.pushButton_10 = QtWidgets.QPushButton(self.groupBox)
         self.pushButton_10.setEnabled(False)
+        # open my thing
+        self.pushButton_10.clicked.connect(openVideo)
         self.pushButton_10.setGeometry(QtCore.QRect(570, 130, 111, 41))
         font = QtGui.QFont()
         font.setPointSize(11)
