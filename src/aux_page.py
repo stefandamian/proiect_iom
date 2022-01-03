@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 
 class UiAuxPage(object):
@@ -26,9 +27,11 @@ class UiAuxPage(object):
         self.label.setScaledContents(True)
         self.label.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignTop)
         self.label.setObjectName("label")
+
         self.graphicsView = QtWidgets.QGraphicsView(self.widget)
         self.graphicsView.setGeometry(QtCore.QRect(250, 390, 421, 231))
         self.graphicsView.setObjectName("graphicsView")
+
         self.pushButton = QtWidgets.QPushButton(self.widget)
         self.pushButton.setGeometry(QtCore.QRect(480, 640, 191, 41))
         font = QtGui.QFont()

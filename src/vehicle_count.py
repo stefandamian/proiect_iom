@@ -14,11 +14,12 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 import matplotlib.pyplot as plt
 
+
 # Initialize Tracker
 tracker = EuclideanDistTracker()
 
 # Initialize the videocapture object
-cap = cv2.VideoCapture('../testare/video-compress.mp4')
+
 input_size = 320
 
 # Detection confidence threshold
@@ -166,7 +167,9 @@ def convert_cv_qt(cv_img):
     return QPixmap.fromImage(p)
 
 
-def realTime():
+def from_static_video(video, output_img, detection_info, img_graph, root):
+    cap = cv2.VideoCapture(video)
+
     while True:
         success, img = cap.read()
         img = cv2.resize(img, (0, 0), None, 0.5, 0.5)
@@ -188,38 +191,24 @@ def realTime():
         cv2.line(img, (0, up_line_position), (iw, up_line_position), (0, 0, 255), 2)
         cv2.line(img, (0, down_line_position), (iw, down_line_position), (0, 0, 255), 2)
 
-        # Draw counting texts in the frame
-        cv2.putText(img, "Up", (110, 20), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Down", (160, 20), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Person:        " + str(up_list[0]) + "     " + str(down_list[0]), (20, 40),
-                    cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Bycicle:        " + str(up_list[1]) + "     " + str(down_list[1]), (20, 60),
-                    cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Car:        " + str(up_list[2]) + "     " + str(down_list[2]), (20, 80),
-                    cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Motorbike:  " + str(up_list[3]) + "     " + str(down_list[3]), (20, 100),
-                    cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Bus:        " + str(up_list[4]) + "     " + str(down_list[4]), (20, 120),
-                    cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
-        cv2.putText(img, "Truck:      " + str(up_list[5]) + "     " + str(down_list[5]), (20, 140),
-                    cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color, font_thickness)
 
-        # Show the frames
-        cv2.imshow('Output', img)
+        # set results
+        detection_info[0].setText(str(up_list[0]+down_list[0]))
+        detection_info[1].setText(str(up_list[1]+down_list[1]))
+        detection_info[2].setText(str(up_list[2]+down_list[2]))
+        detection_info[3].setText(str(up_list[3]+down_list[3]))
+        detection_info[4].setText(str(up_list[4]+down_list[4]))
+        detection_info[5].setText(str(up_list[5]+down_list[5]))
+        detection_info[6].setText(str(sum(up_list)+sum(down_list)))
 
-        if cv2.waitKey(1) == ord('q'):
+        # set img
+        output_img.setPixmap(convert_cv_qt(img))
+
+        if root.ui.stackedWidget.currentWidget() != root.ui.aux_page:
             break
 
-    # Write the vehicle counting information in a file and save it
 
-    with open("../testare/test/data.csv", 'w') as f1:
-        cwriter = csv.writer(f1)
-        cwriter.writerow(['Direction', 'car', 'motorbike', 'bus', 'truck'])
-        up_list.insert(0, "Up")
-        down_list.insert(0, "Down")
-        cwriter.writerow(up_list)
-        cwriter.writerow(down_list)
-    f1.close()
+
     # print("Data saved at 'data.csv'")
     # Finally realese the capture object and destroy all active windows
     cap.release()
@@ -250,6 +239,7 @@ def from_static_image(image, output_img, detection_info, img_graph):
     detection_info[3].setText(str(frequency['motorbike']))
     detection_info[4].setText(str(frequency['bus']))
     detection_info[5].setText(str(frequency['truck']))
+    detection_info[6].setText(str(sum(frequency.values())))
 
     # set img
     output_img.setPixmap(convert_cv_qt(img))
@@ -260,5 +250,12 @@ def from_static_image(image, output_img, detection_info, img_graph):
     numbers = [frequency['person'], frequency['bicycle'], frequency['car'], frequency['motorbike'], frequency['bus'], frequency['truck']]
     plt.bar(types, numbers)
 
-    img_graph[0].axes.plot([0,1,2,3,4], [10,1,20,3,40])
-    img_graph[1] = img_graph[0]
+    #ax = img_graph.figure.subplots()
+    #ax.set_ylim([0, 100])
+    #ax.set_xlim([0, 7])
+    #bar = ax.bar([i+1 for i in range(len(types))], numbers, width=0.2, color='g')
+    #img_graph.draw()
+
+
+
+

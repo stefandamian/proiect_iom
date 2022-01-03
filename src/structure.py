@@ -40,8 +40,7 @@ active = """
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, pages):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1150, 500)
-        MainWindow.setMinimumSize(QtCore.QSize(950, 400))
+        MainWindow.setMinimumSize(QtCore.QSize(1000, 800))
         MainWindow.showMaximized()
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

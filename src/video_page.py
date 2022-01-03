@@ -3,16 +3,25 @@ from PyQt5.QtCore import QUrl
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtWidgets import QFileDialog, QPushButton, QWidget, QVBoxLayout
+from src.vehicle_count import from_static_video
+import threading
 
 
 # Video page UI
 class UiVideoPage(object):
     def setupUi(self, Form, root):
         def openVideo():
-            self.groupBox.setHidden(True)
+            root.ui.stackedWidget.setCurrentWidget(root.ui.aux_page)
             file = self.lineEdit_5.text()
 
+            t = threading.Thread(name='child procs', target=from_static_video, args=(file, root.image_label, root.detection_info, root.img_graph, root))
+            t.start()
 
+            root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page2))
+            root.button_back.setText("Alt video")
+
+            self.pushButton_10.setEnabled(False)
+            self.lineEdit_5.setText("")
 
         def openFileDialog():
             file, check = QFileDialog.getOpenFileName(None, "Select video", "",

@@ -16,6 +16,8 @@ class UiImagePage(object):
             root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page1))
             root.button_back.setText("Altă imagine")
 
+            self.pushButton_10.setEnabled(False)
+            self.lineEdit_5.setText("")
 
         def openFileDialog():
             file, check = QFileDialog.getOpenFileName(None, "Select image", "",
