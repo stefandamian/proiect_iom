@@ -2,23 +2,30 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import QUrl
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtWidgets import QFileDialog, QPushButton, QWidget, QVBoxLayout
+from PyQt5.QtWidgets import QFileDialog, QPushButton, QWidget, QVBoxLayout, QMessageBox
 from src.vehicle_count import from_static_video
 import threading
+import os
 
 
 # Video page UI
 class UiVideoPage(object):
     def setupUi(self, Form, root):
         def openVideo():
-            root.ui.stackedWidget.setCurrentWidget(root.ui.aux_page)
             file = self.lineEdit_5.text()
+            if (os.path.isfile(file)):
+                # sets image
+                root.ui.stackedWidget.setCurrentWidget(root.ui.aux_page)
 
-            t = threading.Thread(name='child procs', target=from_static_video, args=(file, root.image_label, root.detection_info, root.img_graph, root))
-            t.start()
+                t = threading.Thread(name='child procs', target=from_static_video,
+                                     args=(file, root.image_label, root.detection_info, root.img_graph, root))
+                t.start()
 
-            root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page2))
-            root.button_back.setText("Alt video")
+                root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page2))
+                root.button_back.setText("Alt video")
+
+            else:
+                QMessageBox.about(root, "A aparut o eroare", "Imaginea aleasa nu exista")
 
             self.pushButton_10.setEnabled(False)
             self.lineEdit_5.setText("")

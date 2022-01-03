@@ -1,20 +1,25 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from src.vehicle_count import from_static_image
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
+import os
 
 # Image page UI
 class UiImagePage(object):
 
     def setupUi(self, Form, root):
         def openImage():
-            root.ui.stackedWidget.setCurrentWidget(root.ui.aux_page)
             file = self.lineEdit_5.text()
+            if (os.path.isfile(file)):
+                #sets image
+                root.ui.stackedWidget.setCurrentWidget(root.ui.aux_page)
 
-            #sets image
-            from_static_image(file, root.image_label, root.detection_info, root.img_graph)
+                from_static_image(file, root.image_label, root.detection_info, root.img_graph)
 
-            root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page1))
-            root.button_back.setText("Altă imagine")
+                root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page1))
+                root.button_back.setText("Altă imagine")
+
+            else:
+                QMessageBox.about(root, "A aparut o eroare", "Imaginea aleasa nu exista")
 
             self.pushButton_10.setEnabled(False)
             self.lineEdit_5.setText("")
