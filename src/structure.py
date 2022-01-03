@@ -12,17 +12,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 # Set stylesheet
 stylesheet = """
-QPushButton {
-    color: rgb(255, 255, 255);
-    background-color: rgb(35, 35, 35);
-    border: 0px solid;
-    height: 60px;
-    margin: 10px 0;
-    padding: 10px 0;
-}
-QPushButton:hover {
-    background-color: rgb(85, 170, 255);
-}
+    QPushButton {
+        color: rgb(255, 255, 255);
+        background-color: rgb(35, 35, 35);
+        border: 0px solid;
+        height: 60px;
+        margin: 10px 0;
+        padding: 10px 0;
+    }
+    QPushButton:hover {
+        background-color: rgb(85, 170, 255);
+    }
 """
 
 active = """

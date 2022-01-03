@@ -1,10 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from src.vehicle_count import from_static_image
-
-# Image page UI
 from PyQt5.QtWidgets import QFileDialog
 
-
+# Image page UI
 class UiImagePage(object):
 
     def setupUi(self, Form, root):
@@ -13,10 +11,10 @@ class UiImagePage(object):
             file = self.lineEdit_5.text()
 
             #sets image
-            from_static_image(file, root.image_label)
+            from_static_image(file, root.image_label, root.detection_info, root.img_graph)
 
             root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page1))
-            root.button_back.setText("retry img")
+            root.button_back.setText("Altă imagine")
 
 
         def openFileDialog():

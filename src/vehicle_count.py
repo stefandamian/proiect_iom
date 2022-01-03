@@ -7,10 +7,12 @@ import csv
 import collections
 import numpy as np
 from PyQt5 import QtGui
+from matplotlib.backends.backend_template import FigureCanvas
 
 from src.tracker import *
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
+import matplotlib.pyplot as plt
 
 # Initialize Tracker
 tracker = EuclideanDistTracker()
@@ -35,13 +37,11 @@ down_line_position = middle_line_position + 15
 # Store Coco Names in a list
 classesFile = "resources/yolo/coco.names"
 classNames = open(classesFile).read().strip().split('\n')
-print(classNames)
-print(len(classNames))
 
 # class index for our required detection classes
 required_class_index = [0, 1, 2, 3, 5, 7]
 
-detected_classNames = []
+# detected_classNames = []
 
 ## Model Files
 modelConfiguration = 'resources/yolo/yolov3-320.cfg'
@@ -111,7 +111,7 @@ def count_vehicle(box_id, img):
 
 # Function for finding the detected objects from the network output
 def postProcess(outputs, img):
-    global detected_classNames
+    detected_classNames = []
     height, width = img.shape[:2]
     boxes = []
     classIds = []
@@ -153,6 +153,8 @@ def postProcess(outputs, img):
     for box_id in boxes_ids:
         count_vehicle(box_id, img)
 
+    return detected_classNames
+
 
 def convert_cv_qt(cv_img):
     """Convert from an opencv image to QPixmap"""
@@ -162,6 +164,7 @@ def convert_cv_qt(cv_img):
     convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888)
     p = convert_to_Qt_format.scaled(640, 480, Qt.KeepAspectRatio)
     return QPixmap.fromImage(p)
+
 
 def realTime():
     while True:
@@ -223,10 +226,7 @@ def realTime():
     cv2.destroyAllWindows()
 
 
-image_file = '../testare/test/dih_intersection2.jpg'
-
-
-def from_static_image(image, output_img):
+def from_static_image(image, output_img, detection_info, img_graph):
     img = cv2.imread(image)
 
     blob = cv2.dnn.blobFromImage(img, 1 / 255, (input_size, input_size), [0, 0, 0], 1, crop=False)
@@ -239,23 +239,26 @@ def from_static_image(image, output_img):
     outputs = net.forward(outputNames)
 
     # Find the objects from the network output
-    postProcess(outputs, img)
-
+    detected_classNames = postProcess(outputs, img)
     # count the frequency of detected classes
     frequency = collections.Counter(detected_classNames)
-    print(frequency)
-    # Draw counting texts in the frame
-    cv2.putText(img, "Person:     " + str(frequency['person']), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
-                font_thickness)
-    cv2.putText(img, "Bicycle:    " + str(frequency['bicycle']),  (20, 60), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
-                font_thickness)
-    cv2.putText(img, "Car:        " + str(frequency['car']), (20, 80), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
-                font_thickness)
-    cv2.putText(img, "Motorbike:  " + str(frequency['motorbike']), (20, 100), cv2.FONT_HERSHEY_SIMPLEX, font_size,
-                font_color, font_thickness)
-    cv2.putText(img, "Bus:        " + str(frequency['bus']), (20, 120), cv2.FONT_HERSHEY_SIMPLEX, font_size, font_color,
-                font_thickness)
-    cv2.putText(img, "Truck:      " + str(frequency['truck']), (20, 140), cv2.FONT_HERSHEY_SIMPLEX, font_size,
-                font_color, font_thickness)
 
+    # set results
+    detection_info[0].setText(str(frequency['person']))
+    detection_info[1].setText(str(frequency['bicycle']))
+    detection_info[2].setText(str(frequency['car']))
+    detection_info[3].setText(str(frequency['motorbike']))
+    detection_info[4].setText(str(frequency['bus']))
+    detection_info[5].setText(str(frequency['truck']))
+
+    # set img
     output_img.setPixmap(convert_cv_qt(img))
+
+    # set graph
+    fig = plt.figure()
+    types = ['Persoane', 'Biciclete', 'Mașini', 'Motociclete', 'Autobuze', 'Camioane']
+    numbers = [frequency['person'], frequency['bicycle'], frequency['car'], frequency['motorbike'], frequency['bus'], frequency['truck']]
+    plt.bar(types, numbers)
+
+    img_graph[0].axes.plot([0,1,2,3,4], [10,1,20,3,40])
+    img_graph[1] = img_graph[0]
