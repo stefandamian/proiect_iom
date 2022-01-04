@@ -9,6 +9,8 @@ from src.image_page import UiImagePage
 from src.video_page import UiVideoPage
 from src.aux_page import UiAuxPage
 
+# pyuic5 -x resources/ui/test.ui -o test.py
+
 # Set stylesheet
 inactive = """
     QPushButton {

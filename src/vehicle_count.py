@@ -7,25 +7,19 @@ import csv
 import collections
 import numpy as np
 from PyQt5 import QtGui
-from matplotlib.backends.backend_template import FigureCanvas
-
 from src.tracker import *
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
-import matplotlib.pyplot as plt
-
 
 # Initialize Tracker
 tracker = EuclideanDistTracker()
 
 # Initialize the videocapture object
-
 input_size = 320
 
 # Detection confidence threshold
 confThreshold = 0.2
 nmsThreshold = 0.2
-
 font_color = (0, 0, 255)
 font_size = 0.5
 font_thickness = 2
@@ -42,8 +36,6 @@ classNames = open(classesFile).read().strip().split('\n')
 # class index for our required detection classes
 required_class_index = [0, 1, 2, 3, 5, 7]
 
-# detected_classNames = []
-
 ## Model Files
 modelConfiguration = 'resources/yolo/yolov3-320.cfg'
 modelWeigheights = 'resources/yolo/yolov3-320.weights'
@@ -52,7 +44,6 @@ modelWeigheights = 'resources/yolo/yolov3-320.weights'
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeigheights)
 
 # Configure the network backend
-
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_CUDA)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 
@@ -191,23 +182,35 @@ def from_static_video(video, output_img, detection_info, img_graph, root):
         cv2.line(img, (0, up_line_position), (iw, up_line_position), (0, 0, 255), 2)
         cv2.line(img, (0, down_line_position), (iw, down_line_position), (0, 0, 255), 2)
 
-
         # set results
-        detection_info[0].setText(str(up_list[0]+down_list[0]))
-        detection_info[1].setText(str(up_list[1]+down_list[1]))
-        detection_info[2].setText(str(up_list[2]+down_list[2]))
-        detection_info[3].setText(str(up_list[3]+down_list[3]))
-        detection_info[4].setText(str(up_list[4]+down_list[4]))
-        detection_info[5].setText(str(up_list[5]+down_list[5]))
-        detection_info[6].setText(str(sum(up_list)+sum(down_list)))
+        detection_info[0].setText(str(up_list[0] + down_list[0]))
+        detection_info[1].setText(str(up_list[1] + down_list[1]))
+        detection_info[2].setText(str(up_list[2] + down_list[2]))
+        detection_info[3].setText(str(up_list[3] + down_list[3]))
+        detection_info[4].setText(str(up_list[4] + down_list[4]))
+        detection_info[5].setText(str(up_list[5] + down_list[5]))
+        detection_info[6].setText(str(sum(up_list) + sum(down_list)))
 
         # set img
         output_img.setPixmap(convert_cv_qt(img))
 
+        # set graph
+        types = ['Pers...', 'Bici...', 'Mași...', 'Moto...', 'Auto...', 'Cami...']
+        numbers = [
+            up_list[0] + down_list[0],
+            up_list[1] + down_list[1],
+            up_list[2] + down_list[2],
+            up_list[3] + down_list[3],
+            up_list[4] + down_list[4],
+            up_list[5] + down_list[5],
+        ]
+
+        img_graph[0].clear()
+        img_graph[0].bar(types, numbers, color=['#950952', '#FFD9DA', '#FC440F', '#F1D302', '#197BBD', '#0892A5'])
+        img_graph[1].draw()
+
         if root.ui.stackedWidget.currentWidget() != root.ui.aux_page:
             break
-
-
 
     # print("Data saved at 'data.csv'")
     # Finally realese the capture object and destroy all active windows
@@ -245,17 +248,10 @@ def from_static_image(image, output_img, detection_info, img_graph):
     output_img.setPixmap(convert_cv_qt(img))
 
     # set graph
-    fig = plt.figure()
-    types = ['Persoane', 'Biciclete', 'Mașini', 'Motociclete', 'Autobuze', 'Camioane']
-    numbers = [frequency['person'], frequency['bicycle'], frequency['car'], frequency['motorbike'], frequency['bus'], frequency['truck']]
-    plt.bar(types, numbers)
+    types = ['Pers...', 'Bici...', 'Mași...', 'Moto...', 'Auto...', 'Cami...']
+    numbers = [frequency['person'], frequency['bicycle'], frequency['car'], frequency['motorbike'], frequency['bus'],
+               frequency['truck']]
 
-    #ax = img_graph.figure.subplots()
-    #ax.set_ylim([0, 100])
-    #ax.set_xlim([0, 7])
-    #bar = ax.bar([i+1 for i in range(len(types))], numbers, width=0.2, color='g')
-    #img_graph.draw()
-
-
-
-
+    img_graph[0].clear()
+    img_graph[0].bar(types, numbers, color=['#950952','#FFD9DA','#FC440F','#F1D302','#197BBD','#0892A5'])
+    img_graph[1].draw()

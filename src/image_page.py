@@ -19,7 +19,7 @@ class UiImagePage(object):
                 root.button_back.setText("Altă imagine")
 
             else:
-                QMessageBox.about(root, "A aparut o eroare", "Imaginea aleasa nu exista")
+                QMessageBox.about(root, "A apărut o eroare", "Imaginea aleasă nu există.")
 
             self.pushButton_10.setEnabled(False)
             self.lineEdit_5.setText("")

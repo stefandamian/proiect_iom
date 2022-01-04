@@ -22,10 +22,9 @@ class UiVideoPage(object):
                 t.start()
 
                 root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page2))
-                root.button_back.setText("Alt video")
-
+                root.button_back.setText("Alt videoclip")
             else:
-                QMessageBox.about(root, "A aparut o eroare", "Imaginea aleasa nu exista")
+                QMessageBox.about(root, "A apărut o eroare", "Videoclipul ales nu există")
 
             self.pushButton_10.setEnabled(False)
             self.lineEdit_5.setText("")

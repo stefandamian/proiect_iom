@@ -1,6 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import matplotlib.pyplot as plt
 
+plt.style.use('dark_background')
 
 class UiAuxPage(object):
     def setupUi(self, Form, root):
@@ -32,8 +35,15 @@ class UiAuxPage(object):
         self.graphicsView.setGeometry(QtCore.QRect(250, 390, 421, 231))
         self.graphicsView.setObjectName("graphicsView")
 
+        self.figure = Figure()
+        self.canvas = FigureCanvas(self.figure)
+        self.axes = self.figure.add_subplot(111)
+        self.layout = QtWidgets.QVBoxLayout(self.graphicsView)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.addWidget(self.canvas)
+
         self.pushButton = QtWidgets.QPushButton(self.widget)
-        self.pushButton.setGeometry(QtCore.QRect(480, 640, 191, 41))
+        self.pushButton.setGeometry(QtCore.QRect(380, 640, 291, 41))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.pushButton.setFont(font)
@@ -145,7 +155,7 @@ class UiAuxPage(object):
             self.label_10, self.label_11, self.label_12, self.label_13, self.label_14, self.label_15, self.label_16
         ]
         # !!!
-        root.img_graph = self.graphicsView
+        root.img_graph = [self.axes, self.canvas]
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
