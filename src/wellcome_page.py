@@ -107,7 +107,7 @@ class UiWellcomePage(object):
                                             "<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#ffffff;\">    - vizualizează rezultatele</span></p>\n"
                                             "<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#000000;\">    </span></p>\n"
                                             "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" color:#448aff;\">© 2022, Enrico Gărăiman &amp; Ștefan Damian</span></p></body></html>"))
-        self.pushButton_2.setText(_translate("Form", "Detecție din imagine"))
+        self.pushButton_2.setText(_translate("Form", "Detecție din videoclip"))
         self.label.setText(_translate("Form", "SAU"))
         self.pushButton.setText(_translate("Form", "Detecție din imagine"))
 

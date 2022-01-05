@@ -1,5 +1,6 @@
 import sys
 import os
+import threading
 from PyQt5.QtWidgets import *
 from PyQt5 import QtWidgets
 from qt_material import apply_stylesheet
@@ -104,6 +105,8 @@ class MainWindow(QMainWindow):
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
+            # to terminate the thread from video if exists
+            self.ui.stackedWidget.setCurrentWidget(self.ui.wellcome_page)
             if not type(event) == bool:
                 event.accept()
             else:
@@ -122,4 +125,5 @@ if __name__ == "__main__":
         app.setStyleSheet(stylesheet + file.read().format(**os.environ))
 
     window = MainWindow()
+
     sys.exit(app.exec_())

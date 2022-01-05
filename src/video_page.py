@@ -1,9 +1,11 @@
+import os
+import threading
+from datetime import datetime
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
+
 from src.vehicle_count import from_static_video
-import threading, queue
-import os
-from datetime import datetime
 
 
 # Video page UI
@@ -15,8 +17,8 @@ class UiVideoPage(object):
                 # sets image
                 root.ui.stackedWidget.setCurrentWidget(root.ui.aux_page)
 
-                q = queue.Queue()
-                t = threading.Thread(name='child procs', target=from_static_video,
+                q = []
+                t = threading.Thread(name='video_process', target=from_static_video,
                                      args=(file, root.image_label, root.detection_info, root.img_graph, root, q))
                 t.start()
 
@@ -39,7 +41,7 @@ class UiVideoPage(object):
                 self.lineEdit_5.setText("Alege alt videoclip ...")
 
         def exportResults(q):
-            info = q.queue[-1]
+            info = q[-1]
             S__File = QFileDialog.getSaveFileName(None, 'SaveTextFile', '/', "Text Files (*.txt)")
 
             now = datetime.now()

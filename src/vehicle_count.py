@@ -209,7 +209,7 @@ def from_static_video(video, output_img, detection_info, img_graph, root, q):
         img_graph[0].bar(types, numbers, color=['#950952', '#FFD9DA', '#FC440F', '#F1D302', '#197BBD', '#0892A5'])
         img_graph[1].draw()
 
-        q.put(numbers)
+        q.append(numbers)
 
         if root.ui.stackedWidget.currentWidget() != root.ui.aux_page:
             break
