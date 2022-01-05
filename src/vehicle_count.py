@@ -158,7 +158,7 @@ def convert_cv_qt(cv_img):
     return QPixmap.fromImage(p)
 
 
-def from_static_video(video, output_img, detection_info, img_graph, root):
+def from_static_video(video, output_img, detection_info, img_graph, root, q):
     cap = cv2.VideoCapture(video)
 
     while True:
@@ -209,6 +209,8 @@ def from_static_video(video, output_img, detection_info, img_graph, root):
         img_graph[0].bar(types, numbers, color=['#950952', '#FFD9DA', '#FC440F', '#F1D302', '#197BBD', '#0892A5'])
         img_graph[1].draw()
 
+        q.put(numbers)
+
         if root.ui.stackedWidget.currentWidget() != root.ui.aux_page:
             break
 
@@ -253,5 +255,7 @@ def from_static_image(image, output_img, detection_info, img_graph):
                frequency['truck']]
 
     img_graph[0].clear()
-    img_graph[0].bar(types, numbers, color=['#950952','#FFD9DA','#FC440F','#F1D302','#197BBD','#0892A5'])
+    img_graph[0].bar(types, numbers, color=['#950952', '#FFD9DA', '#FC440F', '#F1D302', '#197BBD', '#0892A5'])
     img_graph[1].draw()
+
+    return numbers

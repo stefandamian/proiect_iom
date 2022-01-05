@@ -2,6 +2,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from src.vehicle_count import from_static_image
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 import os
+from datetime import datetime
+
 
 # Image page UI
 class UiImagePage(object):
@@ -10,12 +12,13 @@ class UiImagePage(object):
         def openImage():
             file = self.lineEdit_5.text()
             if (os.path.isfile(file)):
-                #sets image
+                # sets image
                 root.ui.stackedWidget.setCurrentWidget(root.ui.aux_page)
 
-                from_static_image(file, root.image_label, root.detection_info, root.img_graph)
+                info = from_static_image(file, root.image_label, root.detection_info, root.img_graph)
 
                 root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page1))
+                root.button_export.clicked.connect(lambda: exportResults(info))
                 root.button_back.setText("Altă imagine")
 
             else:
@@ -31,7 +34,42 @@ class UiImagePage(object):
                 self.lineEdit_5.setText(file)
                 self.pushButton_10.setEnabled(True)
             else:
-                self.lineEdit_5.setText("Alege alta imagine ...")
+                self.lineEdit_5.setText("Alege altă imagine ...")
+
+        def exportResults(info):
+            S__File = QFileDialog.getSaveFileName(None, 'SaveTextFile', '/', "Text Files (*.txt)")
+
+            now = datetime.now()
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
+            total = info[0] + info[1] + info[2] + info[3] + info[4] + info[5]
+            if total != 0:
+                results = 'S-au detectat ' + str(total) + ' participanti la trafic: \n\n'
+                if info[0] != 0:
+                    results += 'Persoane - ' + str(info[0]) + '\n'
+                if info[1] != 0:
+                    results += 'Biciclete - ' + str(info[1]) + '\n'
+                if info[2] != 0:
+                    results += 'Masini - ' + str(info[2]) + '\n'
+                if info[3] != 0:
+                    results += 'Motociclete - ' + str(info[3]) + '\n'
+                if info[4] != 0:
+                    results += 'Autobuze - ' + str(info[4]) + '\n'
+                if info[5] != 0:
+                    results += 'Camioane - ' + str(info[5]) + '\n'
+            else:
+                results = 'Nu s-a detectat niciun participant la trafic: \n\n'
+
+            results += '\nSalvat la data de: ' + dt_string
+
+            if S__File[0]:
+                try:
+                    with open(S__File[0], 'w') as file:
+                        file.write(results)
+                        QMessageBox.about(root, "Succes", "Datele au fost salvate cu succes.")
+                except BaseException as error:
+                    print('An exception occurred: {}'.format(error))
+                    QMessageBox.about(root, "Eroare", "A apărut o eroare. Incearcă din nou.")
 
         self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout.setObjectName("horizontalLayout")

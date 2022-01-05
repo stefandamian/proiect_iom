@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 plt.style.use('dark_background')
 
+
 class UiAuxPage(object):
     def setupUi(self, Form, root):
         Form.setObjectName("Form")
@@ -47,7 +48,13 @@ class UiAuxPage(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
+        self.pushButton.setObjectName("pushButton2")
+        self.pushButton_2 = QtWidgets.QPushButton(self.widget)
+        self.pushButton_2.setGeometry(QtCore.QRect(30, 640, 291, 41))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.pushButton_2.setFont(font)
+        self.pushButton_2.setObjectName("pushButton2")
         self.groupBox = QtWidgets.QGroupBox(self.widget)
         self.groupBox.setGeometry(QtCore.QRect(30, 390, 201, 231))
         self.groupBox.setTitle("")
@@ -150,6 +157,7 @@ class UiAuxPage(object):
 
         # !!!
         root.button_back = self.pushButton
+        root.button_export = self.pushButton_2
         # !!!
         root.detection_info = [
             self.label_10, self.label_11, self.label_12, self.label_13, self.label_14, self.label_15, self.label_16
@@ -164,6 +172,7 @@ class UiAuxPage(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.pushButton.setText(_translate("Form", "Alege altă imagine"))
+        self.pushButton_2.setText(_translate("Form", "Exportă"))
         self.label_5.setText(_translate("Form", "Motociclete:"))
         self.label_3.setText(_translate("Form", "Biciclete:"))
         self.label_4.setText(_translate("Form", "Mașini:"))
@@ -179,4 +188,3 @@ class UiAuxPage(object):
         self.label_12.setText(_translate("Form", "0"))
         self.label_7.setText(_translate("Form", "Camioane:"))
         self.label_9.setText(_translate("Form", "___________________"))
-

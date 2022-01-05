@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtWidgets import *
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
 from qt_material import apply_stylesheet
 from src.structure import Ui_MainWindow
 from src.wellcome_page import UiWellcomePage
@@ -37,15 +37,19 @@ active = """
     }
 """
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
 
+        self.actionExit = self.findChild(QtWidgets.QAction, "actionExit")
+
         self.image_label = None
         self.button_back = None
         self.detection_info = None
         self.img_graph = None
+        self.button_export = None
 
         wellcome_page = QWidget(self)
         UiWellcomePage().setupUi(wellcome_page, self)
@@ -94,6 +98,21 @@ class MainWindow(QMainWindow):
         elif btn == self.ui.btn_page_2:
             self.ui.btn_page_2.setStyleSheet(active)
 
+    def closeEvent(self, event):
+        reply = QMessageBox.question(self, 'Părăsești aplicația?',
+                                     'Ești sigur că vrei să părăsești aplicația?',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            if not type(event) == bool:
+                event.accept()
+            else:
+                sys.exit()
+        else:
+            if not type(event) == bool:
+                event.ignore()
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     apply_stylesheet(app, theme="dark_blue.xml")
@@ -104,4 +123,3 @@ if __name__ == "__main__":
 
     window = MainWindow()
     sys.exit(app.exec_())
-

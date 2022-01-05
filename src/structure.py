@@ -36,6 +36,7 @@ active = """
     }
 """
 
+
 # Structure for project
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, pages):
@@ -95,7 +96,7 @@ class Ui_MainWindow(object):
         self.btn_page_1.setObjectName("btn_page_1")
         self.verticalLayout_4.addWidget(self.btn_page_1)
 
-        #btn Video
+        # btn Video
         font = QtGui.QFont()
         font.setPointSize(11)
         self.btn_page_2 = QtWidgets.QPushButton(self.frame_top_menus)
@@ -114,16 +115,16 @@ class Ui_MainWindow(object):
         self.stackedWidget = QtWidgets.QStackedWidget(self.frame_pages)
         self.stackedWidget.setObjectName("stackedWidget")
 
-        #PAGE 1
+        # PAGE 1
         self.page1 = pages["image_page"]
 
-        #PAGE 2
+        # PAGE 2
         self.page2 = pages["video_page"]
 
-        #PAGE wellcome
+        # PAGE wellcome
         self.wellcome_page = pages["wellcome_page"]
 
-        #auxiliar page
+        # auxiliar page
         self.aux_page = pages["aux_page"]
 
         # Add pages in layout
@@ -148,4 +149,3 @@ class Ui_MainWindow(object):
         self.btn_page_1.setText(_translate("MainWindow", "Imagine"))
         self.btn_page_2.setText(_translate("MainWindow", "Videoclip"))
         self.btn_home.setText(_translate("MainWindow", "Acasă"))
-

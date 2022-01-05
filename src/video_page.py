@@ -1,11 +1,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import QUrl
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
-from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtWidgets import QFileDialog, QPushButton, QWidget, QVBoxLayout, QMessageBox
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from src.vehicle_count import from_static_video
-import threading
+import threading, queue
 import os
+from datetime import datetime
 
 
 # Video page UI
@@ -17,11 +15,13 @@ class UiVideoPage(object):
                 # sets image
                 root.ui.stackedWidget.setCurrentWidget(root.ui.aux_page)
 
+                q = queue.Queue()
                 t = threading.Thread(name='child procs', target=from_static_video,
-                                     args=(file, root.image_label, root.detection_info, root.img_graph, root))
+                                     args=(file, root.image_label, root.detection_info, root.img_graph, root, q))
                 t.start()
 
                 root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page2))
+                root.button_export.clicked.connect(lambda: exportResults(q))
                 root.button_back.setText("Alt videoclip")
             else:
                 QMessageBox.about(root, "A apărut o eroare", "Videoclipul ales nu există")
@@ -37,6 +37,42 @@ class UiVideoPage(object):
                 self.pushButton_10.setEnabled(True)
             else:
                 self.lineEdit_5.setText("Alege alt videoclip ...")
+
+        def exportResults(q):
+            info = q.queue[-1]
+            S__File = QFileDialog.getSaveFileName(None, 'SaveTextFile', '/', "Text Files (*.txt)")
+
+            now = datetime.now()
+            dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
+            total = info[0] + info[1] + info[2] + info[3] + info[4] + info[5]
+            if total != 0:
+                results = 'S-au detectat ' + str(total) + ' participanti la trafic: \n\n'
+                if info[0] != 0:
+                    results += 'Persoane - ' + str(info[0]) + '\n'
+                if info[1] != 0:
+                    results += 'Biciclete - ' + str(info[1]) + '\n'
+                if info[2] != 0:
+                    results += 'Masini - ' + str(info[2]) + '\n'
+                if info[3] != 0:
+                    results += 'Motociclete - ' + str(info[3]) + '\n'
+                if info[4] != 0:
+                    results += 'Autobuze - ' + str(info[4]) + '\n'
+                if info[5] != 0:
+                    results += 'Camioane - ' + str(info[5]) + '\n'
+            else:
+                results = 'Nu s-a detectat niciun participant la trafic: \n\n'
+
+            results += '\nSalvat la data de: ' + dt_string
+
+            if S__File[0]:
+                try:
+                    with open(S__File[0], 'w') as file:
+                        file.write(results)
+                        QMessageBox.about(root, "Succes", "Datele au fost salvate cu succes.")
+                except BaseException as error:
+                    print('An exception occurred: {}'.format(error))
+                    QMessageBox.about(root, "Eroare", "A apărut o eroare. Incearcă din nou.")
 
         self.horizontalLayout = QtWidgets.QHBoxLayout(Form)
         self.horizontalLayout.setObjectName("horizontalLayout")
@@ -93,7 +129,6 @@ class UiVideoPage(object):
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
