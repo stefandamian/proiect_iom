@@ -125,25 +125,28 @@ def postProcess(outputs, img):
     # Apply Non-Max Suppression
     indices = cv2.dnn.NMSBoxes(boxes, confidenceScores, confThreshold, nmsThreshold)
     # print(classIds)
-    for i in indices.flatten():
-        x, y, w, h = boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]
-        # print(x,y,w,h)
+    try:
+        for i in indices.flatten():
+            x, y, w, h = boxes[i][0], boxes[i][1], boxes[i][2], boxes[i][3]
+            # print(x,y,w,h)
 
-        color = [int(c) for c in colors[classIds[i]]]
-        name = classNames[classIds[i]]
-        detected_classNames.append(name)
-        # Draw classname and confidence score
-        cv2.putText(img, f'{name.upper()} {int(confidenceScores[i] * 100)}%',
-                    (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
+            color = [int(c) for c in colors[classIds[i]]]
+            name = classNames[classIds[i]]
+            detected_classNames.append(name)
+            # Draw classname and confidence score
+            cv2.putText(img, f'{name.upper()} {int(confidenceScores[i] * 100)}%',
+                        (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
 
-        # Draw bounding rectangle
-        cv2.rectangle(img, (x, y), (x + w, y + h), color, 1)
-        detection.append([x, y, w, h, required_class_index.index(classIds[i])])
+            # Draw bounding rectangle
+            cv2.rectangle(img, (x, y), (x + w, y + h), color, 1)
+            detection.append([x, y, w, h, required_class_index.index(classIds[i])])
 
-    # Update the tracker for each object
-    boxes_ids = tracker.update(detection)
-    for box_id in boxes_ids:
-        count_vehicle(box_id, img)
+        # Update the tracker for each object
+        boxes_ids = tracker.update(detection)
+        for box_id in boxes_ids:
+            count_vehicle(box_id, img)
+    except:
+        print('No object detected')
 
     return detected_classNames
 
@@ -160,6 +163,9 @@ def convert_cv_qt(cv_img):
 
 def from_static_video(video, output_img, detection_info, img_graph, root, q):
     cap = cv2.VideoCapture(video)
+    global up_list, down_list
+    up_list = [0, 0, 0, 0, 0, 0]
+    down_list = [0, 0, 0, 0, 0, 0]
 
     while True:
         success, img = cap.read()
@@ -175,7 +181,10 @@ def from_static_video(video, output_img, detection_info, img_graph, root, q):
         outputs = net.forward(outputNames)
 
         # Find the objects from the network output
-        postProcess(outputs, img)
+        try:
+            postProcess(outputs, img)
+        except:
+            print('No object detected')
 
         # Draw the crossing lines
         cv2.line(img, (0, middle_line_position), (iw, middle_line_position), (255, 0, 255), 2)
