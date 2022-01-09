@@ -9,37 +9,18 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-# Set stylesheet
-stylesheet = """
-    QPushButton {
-        color: rgb(255, 255, 255);
-        background-color: rgb(35, 35, 35);
-        border: 0px solid;
-        height: 60px;
-        margin: 10px 0;
-        padding: 10px 0;
-    }
-    QPushButton:hover {
-        background-color: rgb(85, 170, 255);
-    }
-"""
-
-active = """
-    QPushButton {
-        color: rgb(255, 255, 255);
-        margin: 10px 0;
-        padding: 10px 0;
-        border: 0px solid;
-        height: 60px;
-        background-color: rgb(85, 170, 255);
-    }
-"""
+import os
 
 
 # Structure for project
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow, pages):
+        # set css
+        with open('resources/css/active.css') as file:
+            active = file.read().format(**os.environ)
+        with open('resources/css/stylesheet.css') as file:
+            stylesheet = file.read().format(**os.environ)
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.setMinimumSize(QtCore.QSize(1000, 800))
         MainWindow.showMaximized()

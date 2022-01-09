@@ -10,33 +10,8 @@ from src.image_page import UiImagePage
 from src.video_page import UiVideoPage
 from src.aux_page import UiAuxPage
 
+
 # pyuic5 -x resources/ui/test.ui -o test.py
-
-# Set stylesheet
-inactive = """
-    QPushButton {
-        color: rgb(255, 255, 255);
-        background-color: rgb(35, 35, 35);
-        border: 0px solid;
-        height: 60px;
-        margin: 10px 0;
-        padding: 10px 0;
-    }
-    QPushButton:hover {
-        background-color: rgb(85, 170, 255);
-    }
-"""
-
-active = """
-    QPushButton {
-        color: rgb(255, 255, 255);
-        margin: 10px 0;
-        padding: 10px 0;
-        border: 0px solid;
-        height: 60px;
-        background-color: rgb(85, 170, 255);
-    }
-"""
 
 
 class MainWindow(QMainWindow):
@@ -120,9 +95,14 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     apply_stylesheet(app, theme="dark_blue.xml")
 
+    # set css
     stylesheet = app.styleSheet()
     with open('resources/css/main.css') as file:
         app.setStyleSheet(stylesheet + file.read().format(**os.environ))
+    with open('resources/css/active.css') as file:
+        active = file.read().format(**os.environ)
+    with open('resources/css/inactive.css') as file:
+        inactive = file.read().format(**os.environ)
 
     window = MainWindow()
 
