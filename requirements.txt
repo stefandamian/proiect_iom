@@ -1,2 +1,4 @@
 pyqt5==5.15.6
 opencv-python==4.5.4.60
+matloplib==3.5.0
+qt-material==2.8.15
