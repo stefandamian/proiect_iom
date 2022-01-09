@@ -76,7 +76,7 @@ class MainWindow(QMainWindow):
 
     def closeEvent(self, event):
         reply = QMessageBox.question(self, 'Părăsești aplicația?',
-                                     'Ești sigur că vrei să părăsești aplicația?',
+                                     'Ești sigur că dorești să părăsești aplicația?',
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
         if reply == QMessageBox.Yes:

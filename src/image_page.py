@@ -17,7 +17,7 @@ class UiImagePage(object):
 
                 info = from_static_image(file, root.image_label, root.detection_info, root.img_graph)
 
-                root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page1))
+                root.button_back.clicked.connect(lambda: anotherImage(root))
                 root.button_export.clicked.connect(lambda: exportResults(root, info, file))
                 root.button_back.setText("Altă imagine")
 
@@ -35,6 +35,15 @@ class UiImagePage(object):
                 self.pushButton_10.setEnabled(True)
             else:
                 self.lineEdit_5.setText("Alege altă imagine ...")
+
+        def anotherImage(root):
+            reply = QMessageBox.question(root, 'Altă imagine?',
+                                         'Ești sigur că dorești să alegi altă imagine?',
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                root.ui.stackedWidget.setCurrentWidget(root.ui.page1)
+                root.button_back.clicked.disconnect()
 
         def exportResults(root, info, file):
             now = datetime.now()

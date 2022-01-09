@@ -22,7 +22,7 @@ class UiVideoPage(object):
                                      args=(file, root.image_label, root.detection_info, root.img_graph, root, q))
                 t.start()
 
-                root.button_back.clicked.connect(lambda: root.ui.stackedWidget.setCurrentWidget(root.ui.page2))
+                root.button_back.clicked.connect(lambda: anotherVideo(root))
                 root.button_export.clicked.connect(lambda: exportResults(root, q, file))
                 root.button_back.setText("Alt videoclip")
             else:
@@ -39,6 +39,16 @@ class UiVideoPage(object):
                 self.pushButton_10.setEnabled(True)
             else:
                 self.lineEdit_5.setText("Alege alt videoclip ...")
+
+        def anotherVideo(root):
+            reply = QMessageBox.question(root, 'Alt videoclip?',
+                                         'Ești sigur că dorești să alegi alt videoclip?',
+                                         QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+            if reply == QMessageBox.Yes:
+                root.ui.stackedWidget.setCurrentWidget(root.ui.page2)
+                root.button_back.clicked.disconnect()
+
 
         def exportResults(root, q, file):
             info = q[-1]
